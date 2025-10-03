@@ -2,7 +2,7 @@
 # setup_pihud_service.sh
 # Script to create and enable Pi HUD systemd service
 
-SERVICE_NAME="pihud.service"
+SERVICE_NAME="pihud-ip.service"
 SERVICE_PATH="/etc/systemd/system/$SERVICE_NAME"
 
 echo "Creating $SERVICE_NAME..."
@@ -16,7 +16,7 @@ After=network.target
 Type=simple
 WorkingDirectory=/opt/pihud
 ExecStartPre=/bin/sleep 10
-ExecStart=/bin/bash -c "source /opt/pihud/env/bin/activate && exec python3 /opt/pihud/pihud.py"
+ExecStart=/bin/bash -c "source /opt/pihud/env/bin/activate && exec python3 /opt/pihud/pihud-ip.py"
 Restart=on-failure
 RestartSec=5
 
