@@ -1,6 +1,5 @@
 #!/bin/bash
-# setup_pihud_service.sh
-# Script to create and enable Pi HUD systemd service
+# Script to create and enable Pi HUD IP systemd service
 
 SERVICE_NAME="pihud-ip.service"
 SERVICE_PATH="/etc/systemd/system/$SERVICE_NAME"
