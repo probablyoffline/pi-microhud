@@ -9,12 +9,13 @@ echo "Creating $SERVICE_NAME..."
 sudo bash -c "cat > $SERVICE_PATH" <<'EOF'
 [Unit]
 Description=PiHUD Kismet Service
-After=network.target
+After=kismet.target
+Requires=kismet.service
 
 [Service]
 Type=simple
 WorkingDirectory=/opt/pihud
-ExecStartPre=/bin/sleep 10
+EnvironmentFile=/opt/pihud/.kismet_creds
 ExecStart=/bin/bash -c "source /opt/pihud/env/bin/activate && exec python3 /opt/pihud/pihud-kismet.py"
 Restart=on-failure
 RestartSec=5
