@@ -13,7 +13,7 @@ sudo chown -R "${PI_USER}:${PI_USER}" "${INSTALL_DIR}"
 
 # install system packages (needs sudo)
 sudo apt update -y
-sudo apt install -y python3-pip python3-venv git i2c-tools python3-smbus python-dotenv
+sudo apt install -y python3-pip python3-venv git i2c-tools python3-smbus
 
 # enable i2c (needs sudo)
 sudo bash -lc '
@@ -33,7 +33,7 @@ python3 -m venv "${INSTALL_DIR}/env"
 "${INSTALL_DIR}/env/bin/python" -m pip install --upgrade pip setuptools wheel
 
 # install required Python packages into venv
-"${INSTALL_DIR}/env/bin/python" -m pip install adafruit-circuitpython-ssd1306 smbus2
+"${INSTALL_DIR}/env/bin/python" -m pip install adafruit-circuitpython-ssd1306 smbus2 python-dotenv
 
 # create service manually
 #bash create-pihudservice.sh
