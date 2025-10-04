@@ -27,7 +27,7 @@ modprobe i2c-dev || true
 '
 
 # create venv as the normal user
-python3 -m venv "${INSTALL_DIR}/env"
+python3 -m venv --system-site-packages "${INSTALL_DIR}/env"
 
 # upgrade pip/setuptools/wheel inside venv
 "${INSTALL_DIR}/env/bin/python" -m pip install --upgrade pip setuptools wheel
