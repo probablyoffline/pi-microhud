@@ -17,6 +17,7 @@ import base64
 import urllib.request
 import time
 import json
+import gps
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -97,6 +98,29 @@ def get_counts(host="localhost", port=2501, user=None, password=None, token=None
     url = f"{base}/devices/views/all_views.json"
     txt = _http_get(url, user=user, password=password, token=token)
     return parse_all_views_sizes(txt)
+
+
+def get_gps_status():
+    """
+    Connects to gpsd and returns 'NO', '2D', or '3D' depending on fix mode.
+    Requires gpsd to be running (e.g., gpsd /dev/ttyACM0).
+    """
+    try:
+        session = gps.gps(mode=gps.WATCH_ENABLE)
+        report = session.next()
+        # Loop until we find a TPV report (contains fix data)
+        while report['class'] != 'TPV':
+            report = session.next()
+
+        mode = getattr(report, 'mode', 1)
+        if mode == 3:
+            return "3D"
+        elif mode == 2:
+            return "2D"
+        else:
+            return "NO-FIX"
+    except Exception as e:
+        return f"NO"  # default to NO fix if gpsd unavailable
 
 
 def get_uptime(host="localhost", port=2501, user=None, password=None, token=None):
