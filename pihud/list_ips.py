@@ -150,7 +150,7 @@ def get_local_ips(
     include_loopback: bool = False,
     only_up: bool = False,
     ipv4: bool = True,
-    ipv6: bool = True,
+    ipv6: bool = False,
 ) -> Dict[str, Dict[str, List[str]]]:
     """
     Dict of interface -> {'ipv4': [...], 'ipv6': [...]}, with CIDR suffixes.
@@ -167,7 +167,7 @@ def get_ip_strings(
     include_loopback: bool = False,
     only_up: bool = False,
     ipv4: bool = True,
-    ipv6: bool = True,
+    ipv6: bool = False,
 ) -> List[str]:
     """
     Flat list of IP strings (CIDR removed), e.g. ['192.168.1.10', 'fe80::1'].
