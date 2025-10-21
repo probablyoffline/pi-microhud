@@ -10,9 +10,9 @@ W, H = 88, 48
 PAGES = (H + 7) // 8
 
 # Your working orientation/alignment
-SEG = 0xA0        # flip to 0xA1 if text appears mirrored
-COM = 0xC0        # you confirmed this works
-X_OFFSET = 0      # you confirmed this works
+SEG = 0xA0   # horizontal flip (mirror X) if changed to 0xA1
+COM = 0xC0   # vertical flip (mirror Y) if changed to 0xC8
+X_OFFSET = 0
 START_LINE = 0
 
 # ----- Low-level I2C helpers -----
