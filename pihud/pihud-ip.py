@@ -9,10 +9,22 @@ ADDR = 0x3C
 W, H = 88, 48
 PAGES = (H + 7) // 8
 
-# Your working orientation/alignment
-SEG = 0xA0   # horizontal flip (mirror X) if changed to 0xA1
-COM = 0xC0   # vertical flip (mirror Y) if changed to 0xC8
-X_OFFSET = 0
+# ----- Orientation (rotation preset) -----
+# ROTATE = 0 → normal
+# ROTATE = 1 → rotated 180° (mirrored both axes)
+ROTATE = 0
+
+if ROTATE == 0:
+    SEG = 0xA0        # normal segment remap
+    COM = 0xC0        # normal COM scan
+    X_OFFSET = 0
+elif ROTATE == 1:
+    SEG = 0xA1        # flipped segment remap
+    COM = 0xC8        # flipped COM scan
+    X_OFFSET = 39
+else:
+    raise ValueError("ROTATE must be 0 or 1")
+
 START_LINE = 0
 
 # ----- Low-level I2C helpers -----
