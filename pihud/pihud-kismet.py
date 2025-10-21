@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-pihud.py
+pihud-kismet.py
 
 Displays Kismet counts (AP/Wifi/BT) and script uptime on a 88x48 CH1115 OLED.
 All lines left-aligned.
@@ -12,7 +12,8 @@ import busio
 from smbus2 import SMBus
 import adafruit_ssd1306
 
-from kismet_feed import get_counts
+from kismet_feed import get_counts, get_gps_status
+
 
 # ----- Hardware config -----
 ADDR = 0x3C
@@ -80,7 +81,8 @@ def show_lines_align(lines, align="left", line_spacing=12, y_start=None):
     n = len(lines)
     font_h = 8
     total_h = n * font_h + (n - 1) * line_spacing
-    y0 = (H - total_h)//2 if y_start is None else y_start
+#    y0 = (H - total_h)//2 if y_start is None else y_start
+    y0 = 2 if y_start is None else y_start  # small top padding to show first line
 
     for i, s in enumerate(lines):
         x = 2  # always left
@@ -107,15 +109,17 @@ if __name__ == "__main__":
 
             # Get Kismet counts
             counts = get_counts()
+            gps_status = get_gps_status()
             lines = [
                 uptime_line,
                 f"AP: {counts['ap']}",
                 f"Wifi: {counts['wifi']}",
-                f"BT: {counts['bt']}"
+                f"BT: {counts['bt']}",
+                f"GPS: {gps_status}",
             ]
 
             # Show all lines left-aligned
-            show_lines_align(lines, align="left", line_spacing=0, y_start=None)
+            show_lines_align(lines, align="left", line_spacing=0, y_start=8)
 
             time.sleep(INTERVAL_SEC)
 
