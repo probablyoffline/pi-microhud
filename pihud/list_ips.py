@@ -199,7 +199,7 @@ def get_host_and_ip_strings(
     include_loopback: bool = False,
     only_up: bool = False,
     ipv4: bool = True,
-    ipv6: bool = True,
+    ipv6: bool = False,
     fqdn: bool = False,
 ) -> List[str]:
     """
